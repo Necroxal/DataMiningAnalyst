@@ -123,7 +123,7 @@ print(l_dict) #print frequencies
 
 
 plt.bar(range(len(d_freq)), d_freq.values(), align='center',color ='red') #Graph dictionary values
-plt.xticks(range(len(d_freq)), list(d_freq.keys())) #are the values ​​used to display specific points on the coordinate axis.
+plt.xticks(range(len(d_freq)), list(d_freq.keys()),rotation=90) #are the values ​​used to display specific points on the coordinate axis.
 plt.show()
 """
 Punto 6
@@ -171,7 +171,7 @@ def hrs_dev(df):
     for i in range(len(out)):
         his=filter_nan[filter_nan.DevType.str.contains(out[i])]
         his=his.sort_values('WorkWeekHrs') 
-        plt.figure('Histograma',figsize=(10,6)) 
+        plt.figure('Histograma',figsize=(10,3)) 
         plt.title('Developer work hours '+ out[i],color='green',fontsize='x-large')
         plt.hist(his['WorkWeekHrs'], bins = 10)
         plt.grid(color='g', linestyle='-', linewidth=1)
@@ -185,20 +185,20 @@ hrs_dev(df)
 Punto 8
 """
 def histo_ag(df):
-    filter_nan=df.dropna(subset=['Gender','Age']) #Nuevo documento sin Nan en Genero y Salario
-    out=pd.unique(filter_nan['Gender']) #crea lista de tipos de genero
-    ing = ';'.join(out) #une la lista en una cadena agregando ";" entre valores 
-    out=ing.split(';') #crea una lista separando los valores de una cadena por ";"
-    out=(list(set(out))) #elimina los valores repetidos en la cadena
+    filter_nan=df.dropna(subset=['Gender','Age']) 
+    out=pd.unique(filter_nan['Gender']) 
+    ing = ';'.join(out) 
+    out=ing.split(';') 
+    out=(list(set(out)))
     for i in range(len(out)):
         his=filter_nan[filter_nan.Gender.str.contains(out[i])]
         his=his.sort_values('Age')
-        plt.figure('Histograma',figsize=(13,5))
+        plt.figure('Hist',figsize=(13,5))
         plt.title('Age '+out[i],color='red',fontsize='x-large')
         plt.hist(his['Age'], bins = 10)
         plt.ylabel('Frecuency', color='blue',fontsize='xx-large')
         plt.xlabel('Edad', color='blue',fontsize='xx-large')
-        plt.grid(True)
+        plt.grid(color='y', linestyle='-', linewidth=1)
         plt.show()
         plt.clf()
         print("1-----------Age Man")
@@ -210,20 +210,20 @@ histo_ag(df)
 Punto 9
 """
 def age_programming(df):
-    filter_nan=df.dropna(subset=['LanguageWorkedWith','Age']) #Docuemnto  sin Nan
-    out=pd.unique(filter_nan['LanguageWorkedWith']) #Crea lista de tipos de genero
-    ing = ';'.join(out) #Une la lista a una cadena
-    out=ing.split(';') #crea una lista separando los valores de una cadena por ";"
-    out=(list(set(out))) #Elimina los valores repitods en la cadena
+    filter_nan=df.dropna(subset=['LanguageWorkedWith','Age']) 
+    out=pd.unique(filter_nan['LanguageWorkedWith']) 
+    ing = ';'.join(out) 
+    out=ing.split(';') 
+    out=(list(set(out))) 
     print(out)
 
     for i in range(len(out)):
         salary = filter_nan['LanguageWorkedWith']==out[i]
-        print('Lenguage '+out[i]) #Muestra el salario dle genero que se está agregando
-        print("Desviacion estandar",filter_nan[salary]['Age'].std())
-        print("Median",filter_nan[salary]['Age'].median())
-        print("Mean",filter_nan[salary]['Age'].mean())
-    
+        print('Lenguage '+out[i]) 
+        print("std",filter_nan[salary]['Age'].std())
+        print("Median ",filter_nan[salary]['Age'].median())
+        print("Mean ",filter_nan[salary]['Age'].mean())
+ 
 df = pd.read_csv('C:/Users/gnrg_/OneDrive/Documentos/DM/Practica-Intermedia/data/survey_results_public.csv')
 age_programming(df)
 
@@ -281,6 +281,7 @@ df = pd.read_csv('C:/Users/gnrg_/OneDrive/Documentos/DM/Practica-Intermedia/data
 print(Age_salary(df))
 """
 Punto 12
+
 """
 #test
 df=pd.read_csv('C:/Users/gnrg_/OneDrive/Documentos/DM/Practica-Intermedia/data/survey_results_public.csv') 
@@ -300,21 +301,22 @@ df=df.replace({ "Other doctoral degree (Ph.D, Ed.D., etc.)":8 }, regex=True)
 
 def c_salar(df):
     filter_nan=df.dropna(subset=['ConvertedComp','EdLevel'])
-    filter_nan['EdLevel'].replace(['I never completed any formal education'
+    filter_nan['EdLevel'].replace(['I never completed any formal education' #replcae string for numbers
               ,'Primary/elementary school'
               ,'Secondary school (e.g. American high school, German Realschule or Gymnasium, etc.)'
               ,'Associate degree','Some college/university study without earning a degree'
               ,'Bachelor’s degree (BA, BS, B.Eng., etc.)','Professional degree (JD, MD, etc.)'
               ,'Master’s degree (MA, MS, M.Eng., MBA, etc.)','Other doctoral degree (Ph.D, Ed.D., etc.)']
     , ['0','1','2','3','4','5','6','7','8'],inplace=True)
-    filter_nan['EdLevel']=filter_nan['EdLevel'].astype(float)
-    a=filter_nan['ConvertedComp'].corr(filter_nan['EdLevel'],method='pearson')
+    filter_nan['EdLevel']=filter_nan['EdLevel'].astype(float) #convert float
+    a=filter_nan['ConvertedComp'].corr(filter_nan['EdLevel'],method='pearson') #correlation
     print(a) 
 
 df=pd.read_csv('C:/Users/gnrg_/OneDrive/Documentos/DM/Practica-Intermedia/data/survey_results_public.csv')
 c_salar(df)
 """
 Punto 13
+
 """
 def frecuencias(lista):
     d_freq={}
@@ -333,14 +335,13 @@ valores  = list(out)
 #valores = [a.upper().strip() for a in valores] #Estandarizar tipo string
 d_freq = frecuencias(valores)
 
-#sort a dictionario
+#sort a dict
 l_dict = [(v,k) for k,v in d_freq.items()]
 l_dict.sort(reverse  = True)
 print(l_dict)
 
-
 plt.bar(range(len(d_freq)), d_freq.values(), align='center',color ='green')
-plt.xticks(range(len(d_freq)), list(d_freq.keys()))
+plt.xticks(range(len(d_freq)), list(d_freq.keys()),rotation=90)
 plt.show()
 
 
