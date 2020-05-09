@@ -16,7 +16,7 @@ def genero(atr,typ):
     df = pd.read_csv('C:/Users/gnrg_/OneDrive/Documentos/DM/Practica-Intermedia/data/survey_results_public.csv')
     df= df.dropna(subset=['Gender','ConvertedComp']) #Quita valores nan
     df=df.drop(df[df['ConvertedComp']==0].index) #Omite los valores en 0
-    atrib = df[df[atr]== typ]
+    atrib = df[df[atr]== typ] 
     atrib = atrib['ConvertedComp'].describe().T
     return atrib
 
@@ -43,6 +43,8 @@ fig1, ax1 = plt.subplots()
 ax1.set_title('Gender Woman ')
 ax1.boxplot(data) 
 print(grafico)
+
+txt = "welcome to the jungle"
 
 
 
