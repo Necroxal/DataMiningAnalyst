@@ -1,4 +1,4 @@
-# Practice-intermediateDM
+# Practice 
 Práctica de Minería de Datos con Python
 Description
 There is a CSV file named survey_results_public.csv (compressed as
