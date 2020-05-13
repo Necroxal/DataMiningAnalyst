@@ -1,5 +1,4 @@
 # Practice 
-Práctica de Minería de Datos con Python
 Description
 There is a CSV file named survey_results_public.csv (compressed as
 survey_results_public.rar) that contains the data of a survey collected from users of Stack
